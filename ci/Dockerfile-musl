@@ -3,4 +3,14 @@ FROM ubuntu:16.04
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
       gcc ca-certificates make libc6-dev gdb git patch wget xz-utils automake \
-      autoconf musl-tools
+      autoconf musl-tools curl unzip
+ENV PROTOC_VERSION 3.5.0
+RUN curl -OsL https://github.com/google/protobuf/releases/download/v${PROTOC_VERSION}/protoc-${PROTOC_VERSION}-linux-x86_64.zip && \
+    mkdir protoc-3 && \
+    cd protoc-3 && \
+    unzip ../protoc-${PROTOC_VERSION}-linux-x86_64.zip && \
+    mv bin/* /usr/bin && \
+    mv include/* /usr/local/include && \
+    cd .. && \
+    rm -rf protoc-3 protoc-${PROTOC_VERSION}-linux-x86_64.zip && \
+    protoc --version
