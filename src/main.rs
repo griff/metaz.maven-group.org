@@ -6,6 +6,7 @@ extern crate hyper;
 extern crate iron;
 extern crate lru;
 extern crate maxminddb;
+extern crate mime_guess;
 extern crate mount;
 extern crate owning_ref;
 extern crate persistent;

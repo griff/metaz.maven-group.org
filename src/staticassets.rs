@@ -5,7 +5,9 @@ use std::error::Error;
 use std::fmt;
 
 use iron::{IronResult, Request, Response, IronError, Handler, Url, status};
+use iron::mime::{Mime, SubLevel, TopLevel};
 use iron::modifiers::Redirect;
+use mime_guess::guess_mime_type_opt;
 use mount::OriginalUrl;
 use url;
 use url::percent_encoding::percent_decode;
@@ -81,6 +83,11 @@ impl RequestedPath {
     }
 }
 
+fn mime_for_path(path: &Path) -> Mime {
+    guess_mime_type_opt(path)
+        .unwrap_or_else(|| Mime(TopLevel::Text, SubLevel::Plain, vec![]))
+}
+
 pub struct Static {
     root: PathBuf,
 }
@@ -124,6 +131,7 @@ impl Handler for Static {
                                       Redirect(redirect_path))));
         }
 
+        let mime = mime_for_path(&requested_path.path);
         match requested_path.get_file() {
             // If no file is found, return a 404 response.
             None => {
@@ -135,7 +143,7 @@ impl Handler for Static {
             },
             // Won't panic because we know the file exists from get_file.
             Some(data) => {
-                Ok(Response::with((status::Ok, data)))
+                Ok(Response::with((status::Ok, mime, data)))
             },
         }
     }
