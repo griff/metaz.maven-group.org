@@ -72,6 +72,14 @@ impl RequestedPath {
             !has_trailing_slash
     }
 
+    pub fn mime(&self) -> Mime {
+        if let Some(_) = assets::get(&self.path_str) {
+            return mime_for_path(&self.path);
+        }
+
+        mime_for_path(&self.path.join("index.html"))
+    }
+
     pub fn get_file(self) -> Option<&'static [u8]> {
         if let Some(data) = assets::get(&self.path_str) {
             return Some(data);
@@ -131,7 +139,7 @@ impl Handler for Static {
                                       Redirect(redirect_path))));
         }
 
-        let mime = mime_for_path(&requested_path.path);
+        let mime = requested_path.mime();
         match requested_path.get_file() {
             // If no file is found, return a 404 response.
             None => {
