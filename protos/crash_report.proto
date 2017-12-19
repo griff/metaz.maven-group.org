@@ -25,7 +25,7 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-
+syntax = "proto2";
 package plcrash;
 option java_package = "coop.plausible.crashreporter";
 option java_outer_classname = "CrashReport_pb";
@@ -60,7 +60,7 @@ message CrashReport {
      * Processor information
      */
     message Processor {
-        /* 
+        /*
          * CPU Type Encodings
          *
          * The wire format maintains support for multiple CPU type encodings; it is expected that different operating
@@ -79,7 +79,7 @@ message CrashReport {
             /* Apple Mach-defined processor types. */
             TYPE_ENCODING_MACH = 1;
         }
-        
+
         /** The CPU type encoding that should be used to interpret cpu_type and cpu_subtype. This value is required. */
         optional TypeEncoding encoding = 1 [default = TYPE_ENCODING_UNKNOWN];
 
@@ -101,7 +101,7 @@ message CrashReport {
 
             /* iPhone Simulator (Mac OS X w/ simulator runtime environment) */
             IPHONE_SIMULATOR = 2;
-            
+
             /* Unknown operating system. */
             OS_UNKNOWN = 3;
         }
@@ -135,7 +135,7 @@ message CrashReport {
         required string version = 2;
     }
     required ApplicationInfo application_info = 2;
-    
+
     /* A symbol table entry. */
     message Symbol {
         /* The symbol name */
@@ -154,12 +154,12 @@ message CrashReport {
     message Thread {
         /* Thread number (indexed at 0, must be unique within a crash report) */
         required uint32 thread_number = 1;
-        
+
         /* Stack frame */
         message StackFrame {
             /* Instruction pointer */
             required uint64 pc = 3;
-            
+
             /* Field numbers 4-5 were used in Bitstadium's fork of PLCrashReporter to represent
              * symbol name and start address. They were marked as optional values, and
              * are not supported in the official binary format.
@@ -169,7 +169,7 @@ message CrashReport {
             /*
              * Optional symbol information for this frame's PC. If computed client-side, this value is a best guess, and may
              * be inaccurate.
-             * 
+             *
              * Symbol information may not be available, in which case this field will be excluded from the report.
              *
              * This method of encoding symbol records is unfortunately ineffecient, as it is possible that the same
@@ -186,7 +186,7 @@ message CrashReport {
 
         /* True if this is the crashed thread */
         required bool crashed = 3;
-        
+
         /* A single register value */
         message RegisterValue {
             /* Register name (r1, ebp, ...) */
@@ -234,7 +234,7 @@ message CrashReport {
 
         /* The exception reason */
         required string reason = 2;
-        
+
         /* The exception's original call stack, if available. This may be preserved across rethrow of an exception,
          * and can be used to determine the original call stack. */
         repeated Thread.StackFrame frames = 3;
@@ -254,19 +254,19 @@ message CrashReport {
 
         /* Faulting instruction or address */
         required uint64 address = 3;
-        
+
         /*
          * Mach exception info.
          */
         message MachException {
             /* The exception type. These values will generally be common across most Apple platforms. */
             required uint64 type = 1;
-            
+
             /* The exception codes. Interpretation of these values depends on the exception type, and/or the
              * faulting platform. */
             repeated uint64 codes = 2;
         }
-    
+
         /*
          * The Mach Exception that triggered the crash. This field will only be included in the
          * case that encoding crash reporter's exception-based reporting was enabled, and a Mach
@@ -285,23 +285,23 @@ message CrashReport {
 
 
     /* Process Data. This was not available in earlier releases of the crash reporter and is marked optional
-     * for compatibility. */ 
+     * for compatibility. */
     message ProcessInfo {
         /* Application process name */
         optional string process_name = 1;
-        
+
         /* Application process ID */
         required uint32 process_id = 2;
-        
+
         /* Application process path */
         optional string process_path = 3;
-        
+
         /* Application parent process name */
         optional string parent_process_name = 4;
-        
+
         /* Application parent process ID */
         required uint32 parent_process_id = 5;
-        
+
         /** If false, the process is being run via process-level CPU emulation (such as Rosetta). */
         required bool native = 6;
 
@@ -309,14 +309,14 @@ message CrashReport {
          * ommitted if the start time can not be determined. */
         optional uint64 start_time = 7;
     }
-  
+
     /* The process info. Required for all v1.1+ crash reports. */
     optional ProcessInfo process_info = 7;
-    
+
      /*
       * Host architecture information.
       */
-     message MachineInfo {    
+     message MachineInfo {
          /* Hardware model (eg, MacBookPro6,1) */
          optional string model = 1;
 
@@ -339,7 +339,7 @@ message CrashReport {
     /* Host architecture information. Required for all v1.1+ crash reports. If unavailable, the information
      * should be derived from the deprecated SystemInfo.architecture field. */
      optional MachineInfo machine_info = 8;
-     
+
      /*
       * Report format information
       */
