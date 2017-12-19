@@ -30,7 +30,7 @@ script:
     -e TARGET
     -e CARGO_TARGET_DIR=/src/target
     -it rust
-      cargo build --target=x86_64-unknown-linux-musl --release -vvv
+      cargo build --target=x86_64-unknown-linux-musl --release
 after_failure:
   - find . -name config.log -print -exec cat {} \;
 deploy:
