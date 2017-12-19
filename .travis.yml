@@ -3,6 +3,7 @@ cache: cargo
 before_install:
   - openssl aes-256-cbc -K $encrypted_e22c542db632_key -iv $encrypted_e22c542db632_iv -in id_ed25519.enc -out id_ed25519 -d
 install:
+  - rustup target add x86_64-unknown-linux-musl
   - cd site
   - bundle install
   - cd ..
