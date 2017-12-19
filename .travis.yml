@@ -25,7 +25,7 @@ script:
   - docker run
     -w /src
     -v `pwd`:/src:ro
-    -v `pwd`/src/plcrash/protos:/src/src/plcrash/protos \
+    -v `pwd`/src/plcrash/protos:/src/src/plcrash/protos
     -v `pwd`/target:/src/target
     -v `rustc --print sysroot`:/usr/local:ro
     -e TARGET
