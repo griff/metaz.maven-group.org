@@ -1,5 +1,10 @@
+sudo: required
 language: rust
-cache: cargo
+dist: trusty
+services:
+  - docker
+env: TARGET=x86_64-unknown-linux-musl DOCKER=musl
+
 before_install:
   - openssl aes-256-cbc -K $encrypted_e22c542db632_key -iv $encrypted_e22c542db632_iv -in id_ed25519.enc -out id_ed25519 -d
 install:
@@ -14,9 +19,20 @@ script:
   - cd ..
   - curl -O http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
   - tar xvf GeoLite2-City.tar.gz --wildcards --strip-components=1 GeoLite2-City_*/GeoLite2-City.mmdb
-  - cargo build --target=x86_64-unknown-linux-musl --release
+  - cargo generate-lockfile
+  - mkdir .cargo target;
+  - docker build -t rust -f ci/Dockerfile-musl ci;
+  - docker run
+    -w /src
+    -v `pwd`:/src:ro
+    -v `pwd`/target:/src/target
+    -v `rustc --print sysroot`:/usr/local:ro
+    -e TARGET
+    -e CARGO_TARGET_DIR=/src/target
+    -it rust
+      cargo build --target=x86_64-unknown-linux-musl --release -vvv
 after_failure:
-  - cat target/x86_64-unknown-linux-musl/release/build/backtrace-sys-fbd87786123b592b/out/config.log
+  - find . -name config.log -print -exec cat {} \;
 deploy:
   provider: script
   script:

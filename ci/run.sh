@@ -1,3 +1,7 @@
+#!/bin/sh
+
+set -ex
+
 cd site
 bundle install
 bundle exec scripts/get-data.rb
