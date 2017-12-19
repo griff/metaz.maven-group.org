@@ -4,9 +4,9 @@ dist: trusty
 services:
   - docker
 env: TARGET=x86_64-unknown-linux-musl DOCKER=musl
+addons:
+  ssh_known_hosts: xev.maven-group.org
 
-before_install:
-  - openssl aes-256-cbc -K $encrypted_e22c542db632_key -iv $encrypted_e22c542db632_iv -in id_ed25519.enc -out id_ed25519 -d
 install:
   - rustup target add x86_64-unknown-linux-musl
   - cd site
@@ -34,9 +34,17 @@ script:
       cargo build --target=x86_64-unknown-linux-musl --release
 after_failure:
   - find . -name config.log -print -exec cat {} \;
+before_deploy:
+  - if [[ $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_BRANCH == "master" ]] ; then;
+      openssl aes-256-cbc -K $encrypted_e22c542db632_key -iv $encrypted_e22c542db632_iv -in id_ed25519.enc -out -out /tmp/id_ed25519 -d;
+      chmod 600 /tmp/id_ed25519;
+      eval "$(ssh-agent -s)";
+      ssh-add /tmp/id_ed25519;
+    fi
 deploy:
   provider: script
+  skip_cleanup: true
   script:
-    - scp -i id_ed25519 target/x86_64-unknown-linux-musl/release/metazite brian@xev.maven-group.org:/opt/metaz.io/metazite
+    - scp target/x86_64-unknown-linux-musl/release/metazite brian@xev.maven-group.org:/opt/metaz.io/metazite
   on:
     branch: master
