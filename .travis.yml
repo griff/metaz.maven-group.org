@@ -15,6 +15,8 @@ script:
   - curl -O http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
   - tar xvf GeoLite2-City.tar.gz --wildcards --strip-components=1 GeoLite2-City_*/GeoLite2-City.mmdb
   - cargo build --target=x86_64-unknown-linux-musl --release
+after_failure:
+  - cat target/x86_64-unknown-linux-musl/release/build/backtrace-sys-fbd87786123b592b/out/config.log
 deploy:
   provider: script
   script:
