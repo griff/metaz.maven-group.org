@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+  <channel>
+    <title>MetaZ</title>
+    <link>http://griff.github.io/metaz/</link>
+    <description>MetaZ Appcast</description>
+    <language>en</language>
+    <pubDate>Wed, 27 Nov 2013 13:09:00 +0000</pubDate>
+    <atom:link href="http://maven-group.org/metaz/appcast.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Alpha 15</title>
+      <sparkle:releaseNotesLink>http://griff.github.io/metaz/release-notes.html#v1.0a15</sparkle:releaseNotesLink>
+      <pubDate>Wed, 27 Nov 2013 13:09:00 +0000</pubDate>
+      <enclosure url="https://github.com/griff/metaz/releases/download/v1.0a15/MetaZ-1.0a15.zip" type="application/zip" length="4285250" sparkle:version="13.11.27.14.8abfa83" sparkle:shortVersionString="1.0a15" sparkle:dsaSignature="MC0CFQCQdlFUkBBhbTriasLoutOPbScK7AIUSKkFVbYWux/nXlLKhDBfAQUwkOw="/>
+    </item>
+    <item>
+      <title>Alpha 14</title>
+      <sparkle:releaseNotesLink>http://griff.github.io/metaz/release-notes.html#v1.0a14</sparkle:releaseNotesLink>
+      <pubDate>Thu, 14 Nov 2013 06:51:03 +0000</pubDate>
+      <enclosure url="https://github.com/griff/metaz/releases/download/v1.0a14/MetaZ-1.0a14.zip" type="application/zip" length="4263321" sparkle:version="13.11.14.06.f6e1a2f" sparkle:shortVersionString="1.0a14" sparkle:dsaSignature="MCwCFBS48MA1NW8Ngc29gt860X6uzunVAhQZT51PFItHhF7e1GsgTornhz7PlA=="/>
+    </item>
+    <item>
+      <title>Alpha 13</title>
+      <sparkle:releaseNotesLink>http://griff.github.io/metaz/release-notes.html#v1.0a13</sparkle:releaseNotesLink>
+      <pubDate>Tue, 04 Dec 2012 06:25:34 +0000</pubDate>
+      <enclosure url="https://github.com/griff/metaz/releases/download/v1.0a13/MetaZ-1.0a13.zip" type="application/zip" length="4229273" sparkle:version="12.12.04.06.20c53b9" sparkle:shortVersionString="1.0a13" sparkle:dsaSignature="MCwCFDEgQomBG970+AFyfYdGNxRRTiymAhQg3E6Qo/MmTT3YNo/dIUHQmH3XPg=="/>
+    </item>
+    <item>
+      <title>Alpha 12</title>
+      <sparkle:releaseNotesLink>http://griff.github.io/metaz/release-notes.html#1.0a12</sparkle:releaseNotesLink>
+      <pubDate>Tue, 06 Nov 2012 11:47:17 +0000</pubDate>
+      <enclosure url="https://github.com/griff/metaz/releases/download/1.0a12/MetaZ-1.0a12.zip" type="application/zip" length="4210385" sparkle:version="12.11.06.12.b77bd15" sparkle:shortVersionString="1.0a12" sparkle:dsaSignature="MC0CFDUWYggGnStPKr4Ju5p9VgL/oKo/AhUAhYR/vix8SQ8+ot7w8pkCzqf/JrM="/>
+    </item>
+    <item>
+      <title>Alpha 11</title>
+      <sparkle:releaseNotesLink>http://griff.github.io/metaz/release-notes.html#1.0a11</sparkle:releaseNotesLink>
+      <pubDate>Fri, 02 Nov 2012 11:18:32 +0000</pubDate>
+      <enclosure url="https://github.com/griff/metaz/releases/download/1.0a11/MetaZ-1.0a11.zip" type="application/zip" length="3802620" sparkle:version="12.11.02.12.6d9bdbf" sparkle:shortVersionString="1.0a11" sparkle:dsaSignature="MCwCFGQDSIHg+DTQqBqAD8kOE+oWbu20AhQ5Y0sd79HYDiJb0/Y6J0+qPCRFNQ=="/>
+    </item>
+    <item>
+      <title>Alpha 10</title>
+      <sparkle:releaseNotesLink>http://griff.github.io/metaz/release-notes.html#1.0a10</sparkle:releaseNotesLink>
+      <pubDate>Thu, 01 Nov 2012 20:20:41 +0000</pubDate>
+      <enclosure url="https://github.com/griff/metaz/releases/download/1.0a10/MetaZ-1.0a10.zip" type="application/zip" length="4038284" sparkle:version="12.11.01.20.9bddcbc" sparkle:shortVersionString="1.0a10" sparkle:dsaSignature="MC0CFC63kSYc6QATA5l0tSG7+H7Bsk5KAhUAjwadGmeyT5hDiyQqNqEvMTV7xug="/>
+    </item>
+    <item>
+      <title>Alpha 9</title>
+      <sparkle:releaseNotesLink>http://griff.github.io/metaz/release-notes.html#1.0a9</sparkle:releaseNotesLink>
+      <pubDate>Fri, 20 Jan 2012 15:51:53 +0000</pubDate>
+      <enclosure url="https://github.com/griff/metaz/releases/download/1.0a9/MetaZ-1.0a9.zip" type="application/zip" length="3714914" sparkle:version="12.01.20.16" sparkle:shortVersionString="1.0a9" sparkle:dsaSignature="MCwCFD0tf5ESpqjwnz1AGR2Pft5U6wjjAhQeceWs/tHOp2aBjNECz32g+3cvYw=="/>
+    </item>
+    <item>
+      <title>Alpha 8</title>
+      <sparkle:releaseNotesLink>http://griff.github.io/metaz/release-notes.html#1.0a8</sparkle:releaseNotesLink>
+      <pubDate>Mon, 08 Aug 2011 22:54:32 +0000</pubDate>
+      <enclosure url="https://github.com/griff/metaz/releases/download/1.0a8/MetaZ-1.0a8.zip" type="application/zip" length="4047705" sparkle:version="11.08.08.23" sparkle:shortVersionString="1.0a8" sparkle:dsaSignature="MC0CFQCmf4ZNnZ3GULLor1ZLoUdeBNAeMwIUO/9z9WPfWLB8F8ZMPqsZg0e7Jzg="/>
+    </item>
+    <item>
+      <title>Alpha 7</title>
+      <sparkle:releaseNotesLink>http://griff.github.io/metaz/release-notes.html#1.0a7</sparkle:releaseNotesLink>
+      <pubDate>Wed, 12 May 2010 23:25:45 +0000</pubDate>
+      <enclosure url="https://github.com/griff/metaz/releases/download/1.0a7/MetaZ-1.0a7.zip" type="application/zip" length="2918554" sparkle:version="10.05.13.01" sparkle:shortVersionString="1.0a7" sparkle:dsaSignature="MCwCFDgvlSq+wwY+a4IIpcPAYHvEgxpnAhRGzkd8qYfNWwIL5ZBtQIjnMGQ+uA=="/>
+    </item>
+    <item>
+      <title>Alpha 6</title>
+      <sparkle:releaseNotesLink>http://griff.github.io/metaz/release-notes.html#1.0a6</sparkle:releaseNotesLink>
+      <pubDate>Wed, 12 May 2010 04:06:00 +0000</pubDate>
+      <enclosure url="https://github.com/griff/metaz/releases/download/1.0a6/MetaZ-1.0a6.zip" type="application/zip" length="2918125" sparkle:version="10.05.12.06" sparkle:shortVersionString="1.0a6" sparkle:dsaSignature="MCwCFFq3C7duV4dzh933raIyzipkeB/rAhRRKMO75k6p5sMs55ThzNyDb5XypA=="/>
+    </item>
+    <item>
+      <title>Alpha 5</title>
+      <sparkle:releaseNotesLink>http://griff.github.io/metaz/release-notes.html#1.0a5</sparkle:releaseNotesLink>
+      <pubDate>Mon, 21 Dec 2009 03:16:07 +0000</pubDate>
+      <enclosure url="https://github.com/griff/metaz/releases/download/1.0a5/MetaZ-1.0a5.zip" type="application/zip" length="3107035" sparkle:version="09.12.21.04" sparkle:shortVersionString="1.0a5" sparkle:dsaSignature="MC0CFQCSEL+3LZa5uBSlhCrKC4edSGOIWwIUPMbGS6GMBTznZNeq+/tTf2J8UtM="/>
+    </item>
+    <item>
+      <title>Version 0.8a</title>
+      <sparkle:releaseNotesLink>http://griff.github.io/metaz/release-notes.html#0.8a</sparkle:releaseNotesLink>
+      <pubDate>Mon, 14 Dec 2009 11:23:59 +0000</pubDate>
+      <enclosure url="https://github.com/griff/metaz/releases/download/0.8a/MetaZ-0.8a.zip" type="application/zip" length="3262952" sparkle:version="09.12.14.12" sparkle:shortVersionString="0.8a" sparkle:dsaSignature="MC0CFQCA4uILiHLAWWh0OitfJySrG7ksDwIUeF9HEmF/Uehbhc5cnsB2z/XR6gs="/>
+    </item>
+    <item>
+      <title>Version 0.7a</title>
+      <sparkle:releaseNotesLink>http://griff.github.io/metaz/release-notes.html#0.7a</sparkle:releaseNotesLink>
+      <pubDate>Fri, 20 Nov 2009 06:32:25 +0000</pubDate>
+      <enclosure url="https://github.com/griff/metaz/releases/download/0.7a/MetaZ-0.7a.zip" type="application/zip" length="2536237" sparkle:version="09.11.20.07" sparkle:shortVersionString="0.7a" sparkle:dsaSignature="MC0CFQCNjZXB6C40XxLSX1DvQGu1MxUg8wIUUQNMVjKwtwrfYUgG0YUFM5WDPks="/>
+    </item>
+    <item>
+      <title>Version 0.6a</title>
+      <sparkle:releaseNotesLink>http://griff.github.io/metaz/release-notes.html#0.6a</sparkle:releaseNotesLink>
+      <pubDate>Tue, 17 Nov 2009 00:31:36 +0000</pubDate>
+      <enclosure url="https://github.com/griff/metaz/releases/download/0.6a/MetaZ-0.6a.zip" type="application/zip" length="2507776" sparkle:version="09.11.17.01" sparkle:shortVersionString="0.6a" sparkle:dsaSignature="MCwCFDdGRGW+N3yWINUnvRzLHYBTXi+TAhQ0VufN5d4krXhRvepCWYG16ZercA=="/>
+    </item>
+    <item>
+      <title>Version 0.5a</title>
+      <sparkle:releaseNotesLink>http://griff.github.io/metaz/release-notes.html#0.5a</sparkle:releaseNotesLink>
+      <pubDate>Mon, 16 Nov 2009 23:24:19 +0000</pubDate>
+      <enclosure url="https://github.com/griff/metaz/releases/download/0.5a/MetaZ-0.5a.zip" type="application/zip" length="2507700" sparkle:version="09.11.17.00" sparkle:shortVersionString="0.5a" sparkle:dsaSignature="MCwCFApvqotqDSsKqJWNqTHDtjAOnWvlAhRd/k+HA/SXolbufDsYqWUG7MHRMw=="/>
+    </item>
+    <item>
+      <title>Version 0.4a</title>
+      <sparkle:releaseNotesLink>http://griff.github.io/metaz/release-notes.html#0.4a</sparkle:releaseNotesLink>
+      <pubDate>Sun, 15 Nov 2009 20:49:13 +0000</pubDate>
+      <enclosure url="https://github.com/griff/metaz/releases/download/0.4a/MetaZ-0.4a.zip" type="application/zip" length="2434986" sparkle:version="09.11.15.20" sparkle:shortVersionString="0.4a" sparkle:dsaSignature="MC0CFQCCulcXqSLuubX4Yd8o1CxlvSCUaQIUNstqbJGOygtl5qwu0q1y13ZEmNk="/>
+    </item>
+  </channel>
+</rss>

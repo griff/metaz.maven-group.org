@@ -1,0 +1,10 @@
+/target/
+**/*.rs.bk
+/site/_site
+/site/vendor/
+/site/sparkle/
+/site/_data/
+/site/.sass-cache
+/site/.jekyll-metadata
+GeoLite2-City.*
+id_ed25519

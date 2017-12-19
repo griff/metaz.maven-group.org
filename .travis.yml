@@ -1,0 +1,22 @@
+language: rust
+cache: cargo
+before_install:
+  - openssl aes-256-cbc -K $encrypted_e22c542db632_key -iv $encrypted_e22c542db632_iv -in id_ed25519.enc -out id_ed25519 -d
+install:
+  - cd site
+  - bundle install
+  - cd ..
+script:
+  - cd site
+  - bundle exec scripts/get-data.rb
+  - bundle exec jekyll build
+  - cd ..
+  - curl -O http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
+  - tar xvf GeoLite2-City.tar.gz --strip-components=1 GeoLite2-City_*/GeoLite2-City.mmdb
+  - cargo build --target=x86_64-unknown-linux-musl --release
+deploy:
+  provider: script
+  script:
+    - scp -i id_ed25519 target/x86_64-unknown-linux-musl/release/metazite brian@xev.maven-group.org:/opt/metaz.io/metazite
+  on:
+    branch: master
