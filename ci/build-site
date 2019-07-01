@@ -1,0 +1,9 @@
+#!/bin/sh
+set -ev
+
+SRC="$(cd "$(dirname "$0")/.."; pwd -P)"
+
+cd $SRC/site
+bundle install
+bundle exec scripts/get-data.rb
+bundle exec jekyll build

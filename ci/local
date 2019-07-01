@@ -1,24 +1,8 @@
 #!/bin/bash
-set -o errexit
+set -ev
 
-export TARGET=x86_64-unknown-linux-musl
-export DOCKER=musl
-
-if [ -z "$DOCKER" ]; then
-  sh ci/run.sh;
-else
-  mkdir -p .cargo target;
-  docker build -t rust-metazite -f ci/Dockerfile-$DOCKER ci;
-  docker run \
-    -w /src \
-    -v $PWD:/src:ro \
-    -v $PWD/src/plcrash/protos:/src/src/plcrash/protos \
-    -v $PWD/target:/src/target \
-    -v $HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu:/usr/local:ro \
-    -v $HOME/.cargo/registry:/root/.cargo/registry \
-    -e TARGET \
-    -e NO_RUN \
-    -e CARGO_TARGET_DIR=/src/target \
-    -it rust-metazite \
-    cargo build --target=x86_64-unknown-linux-musl --release
-fi
+DIR="$(dirname "$0")"
+$DIR/build-site
+$DIR/download-geolite2-city
+$DIR/build-server
+$DIR/make-tar

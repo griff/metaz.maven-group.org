@@ -1,0 +1,14 @@
+#!/bin/sh
+set -ev
+
+SRC="$(cd "$(dirname "$0")/.."; pwd -P)"
+
+if [ -d "$SRC/target/deploy" ]; then
+  rm -rf "$SRC/target/deploy"
+fi
+mkdir -p $SRC/target/deploy
+cd $SRC/target/deploy
+cp -a $SRC/site/_site/ $SRC/target/deploy/site/
+cp $SRC/target/x86_64-unknown-linux-musl/release/metazite $SRC/target/deploy/
+cp $SRC/GeoLite2-City.mmdb $SRC/target/deploy/
+tar cvzf $SRC/target/metazite.tar.gz *

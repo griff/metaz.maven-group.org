@@ -4,35 +4,19 @@ version = "0.1.0"
 authors = ["Brian Olsen <brian@maven-group.org>"]
 build = "build.rs"
 
+[[bin]]
+name = "metazite"
+path = "src/main.rs"
+doc = false
+
 [dependencies]
-addr2line = "0.5"
-bodyparser = "0.7"
-chrono = "0.4"
 hyper = "0.10"
 iron = "0.5"
-lru = "0.1"
 mount = "0.3"
-owning_ref = "0.3"
-persistent = "0.3"
-plugin = "0.2"
 prometheus = "0.3"
-protobuf = "1.4"
-router = "0.5"
-serde = "1.0"
-serde_derive = "1.0"
+serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 url = "1.1"
 urlencoded = "0.5"
-zip = "0.2"
+maxminddb = "0.13.0"
 mime_guess = "1.8"
-
-[dependencies.uuid]
-version = "0.5"
-features = ["v4"]
-
-[dependencies.maxminddb]
-git = "https://github.com/griff/maxminddb-rust"
-branch = "feature/byte-reader"
-
-[build-dependencies]
-protoc-rust = "1.4.1"

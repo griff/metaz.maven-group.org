@@ -9,29 +9,12 @@ addons:
 
 install:
   - rustup target add x86_64-unknown-linux-musl
-  - cd site
+  - pushd site
   - bundle install
-  - cd ..
+  - popd
 script:
-  - cd site
-  - bundle exec scripts/get-data.rb
-  - bundle exec jekyll build
-  - cd ..
-  - curl -O http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
-  - tar xvf GeoLite2-City.tar.gz --wildcards --strip-components=1 GeoLite2-City_*/GeoLite2-City.mmdb
-  - cargo generate-lockfile
-  - mkdir .cargo target;
-  - docker build -t rust -f ci/Dockerfile-musl ci;
-  - docker run
-    -w /src
-    -v `pwd`:/src:ro
-    -v `pwd`/src/plcrash/protos:/src/src/plcrash/protos
-    -v `pwd`/target:/src/target
-    -v `rustc --print sysroot`:/usr/local:ro
-    -e TARGET
-    -e CARGO_TARGET_DIR=/src/target
-    -it rust
-      cargo build --target=x86_64-unknown-linux-musl --release
+  - ./ci/local
+
 after_failure:
   - find . -name config.log -print -exec cat {} \;
 before_deploy:
@@ -45,6 +28,6 @@ deploy:
   provider: script
   skip_cleanup: true
   script:
-    - scp target/x86_64-unknown-linux-musl/release/metazite brian@xev.maven-group.org:/opt/metaz.io/metazite
+    - scp target/metazite.tar.gz brian@xev.maven-group.org:/opt/metaz.io/metazite.tar.gz
   on:
     branch: master

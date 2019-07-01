@@ -1,28 +1,16 @@
-extern crate addr2line;
-extern crate bodyparser;
-extern crate chrono;
+#![warn(unused_extern_crates)]
 #[macro_use]
 extern crate hyper;
 extern crate iron;
-extern crate lru;
 extern crate maxminddb;
 extern crate mime_guess;
 extern crate mount;
-extern crate owning_ref;
-extern crate persistent;
-extern crate plugin;
 #[macro_use]
 extern crate prometheus;
-extern crate protobuf;
-extern crate router;
 extern crate serde;
-#[macro_use]
-extern crate serde_derive;
 extern crate serde_json;
 extern crate urlencoded;
 extern crate url;
-extern crate uuid;
-extern crate zip;
 
 use std::path::Path;
 use std::collections::HashMap;
@@ -36,7 +24,6 @@ use maxminddb::{MaxMindDBError, Reader};
 use maxminddb::geoip2::City;
 use mount::Mount;
 use prometheus::{CounterVec, Encoder, TextEncoder};
-use router::Router;
 use urlencoded::UrlEncodedQuery;
 
 mod assets {
@@ -44,21 +31,13 @@ mod assets {
 }
 mod forward;
 mod staticassets;
-mod plcrash;
-mod symbolicate;
+mod version_info;
 
 use staticassets::{Static, request_path};
-
-#[derive(Clone, Serialize, Deserialize)]
-struct VersionInfo {
-    short_version: String,
-    dsym: Option<String>,
-    draft: bool,
-    prerelease: bool,
-}
+use version_info::VersionInfo;
 
 struct Profile {
-    reader: Reader,
+    reader: Reader<&'static [u8]>,
     counter: CounterVec,
     versions: HashMap<String, VersionInfo>,
 }
@@ -116,7 +95,7 @@ fn main() {
     let versions_str = include_str!("../site/_data/versions.json");
     let versions : HashMap<String, VersionInfo> = serde_json::from_str(versions_str).expect("Read versions");
     let db = include_bytes!("../GeoLite2-City.mmdb");
-    let reader = maxminddb::Reader::read(db.to_vec()).expect("Read geo db");
+    let reader = maxminddb::Reader::from_source(&db[..]).expect("Read geo db");
     let profile = Profile {
         reader: reader,
         counter: register_counter_vec!(
@@ -129,16 +108,6 @@ fn main() {
     };
 
     let mut mount = Mount::new();
-
-    let mut router = Router::new();
-    router.get("/", |_: &mut Request| {
-        Ok(Response::with((status::Ok, "OK")))
-    }, "index");
-    router.get("/symbolicate", |_: &mut Request| {
-        Ok(Response::with((status::Ok, "OK")))
-    }, "symbolicate");
-    router.post("/symbolicate", symbolicate::Symbolicate{}, "symbolicate");
-    mount.mount("/crash", router);
 
     // Serve the shared JS/CSS at /
     mount.mount("/", Static::new(Path::new("site/_site")));

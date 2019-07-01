@@ -1,0 +1,33 @@
+#!/bin/sh
+set -ex
+
+case "$(uname -s)" in
+"Darwin")
+    export SYSROOT="$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu"
+    ;;
+"Linux")
+    export SYSROOT="`rustc --print sysroot`"
+    ;;
+*)
+    ;;
+esac
+
+export TARGET=x86_64-unknown-linux-musl
+export DOCKER=musl
+
+SRC="$(cd "$(dirname "$0")/.."; pwd -P)"
+
+mkdir -p .cargo target;
+docker build -t rust-metazite -f ci/Dockerfile-$DOCKER ci;
+docker run \
+  -w /src \
+  -v $SRC:/src:ro \
+  -v $SRC/src/plcrash/protos:/src/src/plcrash/protos \
+  -v $SRC/target:/src/target \
+  -v $SYSROOT:/usr/local:ro \
+  -v $HOME/.cargo/registry:/root/.cargo/registry \
+  -e TARGET \
+  -e NO_RUN \
+  -e CARGO_TARGET_DIR=/src/target \
+  -it rust-metazite \
+  cargo build --target=$TARGET --release

@@ -1,5 +1,3 @@
-extern crate protoc_rust;
-
 use std::env;
 use std::fs::{ReadDir, File};
 use std::io::Write;
@@ -22,12 +20,6 @@ fn write_files(output: &mut File, root: &Path, dir: ReadDir) {
 }
 
 fn main() {
-    protoc_rust::run(protoc_rust::Args {
-        out_dir: "src/plcrash/protos",
-        input: &["protos/crash_report.proto"],
-        includes: &["protos"],
-    }).expect("protoc");
-
     let src = PathBuf::from(env::var_os("CARGO_MANIFEST_DIR").unwrap());
     let site = src.join("site/_site");
     let dst = PathBuf::from(env::var_os("OUT_DIR").unwrap());
