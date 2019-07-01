@@ -4,4 +4,4 @@ set -ev
 SRC="$(cd "$(dirname "$0")/.."; pwd -P)"
 cd $SRC
 curl -O http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
-tar xvf GeoLite2-City.tar.gz --strip-components=1 GeoLite2-City_*/GeoLite2-City.mmdb
+tar xvf GeoLite2-City.tar.gz --wildcards --strip-components=1 GeoLite2-City_*/GeoLite2-City.mmdb
