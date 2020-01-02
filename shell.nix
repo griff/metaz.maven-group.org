@@ -2,7 +2,7 @@ let
   moz_overlay = import (builtins.fetchTarball https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz);
   rust_replace = self: super: {
     rust = let
-        rust = (super.rustChannelOf { channel = "1.35.0"; }).rust;
+        rust = (super.rustChannelOf { channel = "1.40.0"; }).rust;
       in { rustc = rust; cargo = rust; };
     inherit (self.rust) rustc cargo;
   };

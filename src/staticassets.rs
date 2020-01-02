@@ -7,7 +7,7 @@ use std::fmt;
 use iron::{IronResult, Request, Response, IronError, Handler, Url, status};
 use iron::mime::{Mime, SubLevel, TopLevel};
 use iron::modifiers::Redirect;
-use mime_guess::guess_mime_type_opt;
+use mime_guess::{self, guess_mime_type_opt};
 use mount::OriginalUrl;
 use url;
 use url::percent_encoding::percent_decode;
@@ -91,9 +91,9 @@ impl RequestedPath {
     }
 }
 
-fn mime_for_path(path: &Path) -> Mime {
+fn mime_for_path(path: &Path) -> mime_guess::Mime {
     guess_mime_type_opt(path)
-        .unwrap_or_else(|| Mime(TopLevel::Text, SubLevel::Plain, vec![]))
+        .unwrap_or_else(|| mime_guess::Mime(TopLevel::Text, SubLevel::Plain, vec![]))
 }
 
 pub struct Static {
