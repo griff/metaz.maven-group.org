@@ -3,5 +3,5 @@ set -ev
 
 SRC="$(cd "$(dirname "$0")/.."; pwd -P)"
 cd $SRC
-curl -o GeoLite2-City.tar.gz -L "https://download.maxmind.com/app/geoip_download_by_token?edition_id=GeoLite2-City&date=20191231&token=v2.local.NsFTX39ymxGCdFcaJfvazuHqFPdF_gFFvuhf_KWJeARlnMEqBbRbUi5HVElHTCjVxNXw-3bsGFDxgeD_m08dvLQNPtukRO9vhN61w4I_XIi7lf7E4XFYjZQuFj_KVm-orLCsFPKgTkGrGhv3UR2a8i9CPdk0KlBkJCwGb07KG5kWkNzt8O9Kzgw6ny9dnRT9BEF6ADSv&suffix=tar.gz"
+curl -o GeoLite2-City.tar.gz -L "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=lH0hSvHiqDi9NnpW&suffix=tar.gz"
 tar xvf GeoLite2-City.tar.gz --wildcards --strip-components=1 GeoLite2-City_*/GeoLite2-City.mmdb
