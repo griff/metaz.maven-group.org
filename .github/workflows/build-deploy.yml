@@ -19,11 +19,12 @@ jobs:
         target: x86_64-unknown-linux-musl
     - name: Build
       run: "./ci/local"
-    - uses: webfactory/ssh-agent@v0.4.1
+    - name: Deploy | Setup SSH Agent
+      uses: webfactory/ssh-agent@v0.4.1
       if: "github.ref == 'refs/heads/main'"
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-    - name: Deploy
+    - name: Deploy | Copy file
       if: "github.ref == 'refs/heads/main'"
       env:
         SSH_USER: ${{ secrets.SSH_USER }}
