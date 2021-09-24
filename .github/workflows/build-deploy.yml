@@ -20,7 +20,7 @@ jobs:
     - name: Build
       run: "./ci/local"
     - name: Deploy
-      uses: uses: nogsantos/scp-deploy@v1.3.0
+      uses: nogsantos/scp-deploy@v1.3.0
       if: "github.ref == 'refs/heads/main'"
       with:
         src: target/metazite.tar.gz
