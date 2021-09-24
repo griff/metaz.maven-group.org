@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
     <channel>
         <title>MetaZ</title>
-        <link>https://metaz.io/</link>
+        <link>https://metaz.maven-group.org/</link>
         <description>MetaZ Appcast</description>
         <language>en</language>
         {% if page.release_only %}
-        <atom:link href="https://metaz.io/appcast.xml" rel="self" type="application/rss+xml"/>
+        <atom:link href="https://metaz.maven-group.org/appcast.xml" rel="self" type="application/rss+xml"/>
         {% else %}
-        <atom:link href="https://metaz.io/appcast-prerelease.xml" rel="self" type="application/rss+xml"/>
+        <atom:link href="https://metaz.maven-group.org/appcast-prerelease.xml" rel="self" type="application/rss+xml"/>
         {% endif %}
         {% for release in site.data.all_releases %}
             {% unless release.draft %}
@@ -16,9 +16,9 @@
                     <item>
                         <title>{{ release.title }}</title>
                         {% if page.release_only %}
-                            <sparkle:releaseNotesLink>https://metaz.io/release-notes.html#{{ release.tag_name }}</sparkle:releaseNotesLink>
+                            <sparkle:releaseNotesLink>https://metaz.maven-group.org/release-notes.html#{{ release.tag_name }}</sparkle:releaseNotesLink>
                         {% else %}
-                            <sparkle:releaseNotesLink>https://metaz.io/prerelease-notes.html#{{ release.tag_name }}</sparkle:releaseNotesLink>
+                            <sparkle:releaseNotesLink>https://metaz.maven-group.org/prerelease-notes.html#{{ release.tag_name }}</sparkle:releaseNotesLink>
                         {% endif %}
                         {% if release.sparkle.minimumSystemVersion %}
                             <sparkle:minimumSystemVersion>{{ release.sparkle.minimumSystemVersion }}</sparkle:minimumSystemVersion>

@@ -24,7 +24,7 @@ description: > # this means to ignore newlines until "baseurl:"
   resizing. This lead to us starting MetaZ as a reimplementation of
   MetaX with a few ideas of our own sprinkled in there.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://metaz.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://metaz.maven-group.org" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: nibsoar
 github_username:  griff
 
