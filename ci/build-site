@@ -4,6 +4,8 @@ set -ev
 SRC="$(cd "$(dirname "$0")/.."; pwd -P)"
 
 cd $SRC/site
-bundle install
+if [ ! -d "vendor/bundle" ]; then
+    bundle install
+fi
 bundle exec scripts/get-data.rb
 bundle exec jekyll build
