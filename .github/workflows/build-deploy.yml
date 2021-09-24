@@ -1,0 +1,20 @@
+name: "Build and deploy"
+on:
+  push:
+  pull_request:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: "./ci/local"
+    - name: Deploy
+      uses: garygrossgarten/github-action-scp@v0.7.3
+      if: "github.ref == 'refs/heads/main'"
+      with:
+        local: target/metazite.tar.gz
+        remote: /opt/metaz.io/metazite.tar.gz
+        host: xev.maven-group.org
+        username: ${{ secrets.SSH_USER }}
+        privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
