@@ -27,6 +27,6 @@ jobs:
       if: "github.ref == 'refs/heads/main'"
       env:
         SSH_USER: ${{ secrets.SSH_USER }}
-      run:
-        - "cat .ssh/known_hosts >> $HOME/.ssh/known_hosts"
-        - "scp target/metazite.tar.gz $SSH_USER@xev.maven-group.org:/opt/metaz.io/metazite.tar.gz"
+      run: |
+        cat .ssh/known_hosts >> $HOME/.ssh/known_hosts
+        scp target/metazite.tar.gz $SSH_USER@xev.maven-group.org:/opt/metaz.io/metazite.tar.gz
