@@ -19,12 +19,14 @@ jobs:
         target: x86_64-unknown-linux-musl
     - name: Build
       run: "./ci/local"
-    - name: Deploy
-      uses: nogsantos/scp-deploy@v1.3.0
+    - uses: webfactory/ssh-agent@v0.4.1
       if: "github.ref == 'refs/heads/main'"
       with:
-        src: target/metazite.tar.gz
-        host: xev.maven-group.org
-        remote: /opt/metaz.io/metazite.tar.gz
-        user: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - name: Deploy
+      if: "github.ref == 'refs/heads/main'"
+      env:
+        SSH_USER: ${{ secrets.SSH_USER }}
+      run:
+        - "cat .ssh/known_hosts >> $HOME/.ssh/known_hosts"
+        - "scp target/metazite.tar.gz $SSH_USER@xev.maven-group.org:/opt/metaz.io/metazite.tar.gz"
