@@ -20,11 +20,11 @@ jobs:
     - name: Build
       run: "./ci/local"
     - name: Deploy
-      uses: garygrossgarten/github-action-scp@v0.7.3
+      uses: uses: nogsantos/scp-deploy@v1.3.0
       if: "github.ref == 'refs/heads/main'"
       with:
-        local: target/metazite.tar.gz
-        remote: /opt/metaz.io/metazite.tar.gz
+        src: target/metazite.tar.gz
         host: xev.maven-group.org
-        username: ${{ secrets.SSH_USER }}
-        privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+        remote: /opt/metaz.io/metazite.tar.gz
+        user: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
