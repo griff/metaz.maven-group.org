@@ -29,5 +29,5 @@ docker run \
   -e TARGET \
   -e NO_RUN \
   -e CARGO_TARGET_DIR=/src/target \
-  -it rust-metazite \
+  rust-metazite \
   cargo build --target=$TARGET --release
