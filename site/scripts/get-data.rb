@@ -4,42 +4,36 @@ require 'json'
 require 'open-uri'
 require 'fileutils'
 
-def parse_all_json(url)
-  puts $stderr, "Loading #{url}"
+def open_gh_url(url, &block)
   if ENV['GITHUB_TOKEN'] && ENV['GITHUB_TOKEN'] != ''
     open(url, http_basic_authentication: ['griff', ENV['GITHUB_TOKEN']] ) do |f|
-      next_link = f.meta['link'].split(",").map(&:strip).select {|f| f =~ /rel="next"/ }.first
-      if next_link =~ /<(.*)>/
-        others = parse_all_json($1)
-      else
-        others = []
-      end
-      mine = JSON.parse(f.read, symbolize_names: true)
-      mine + others
+      yield f
     end
   else
     open(url) do |f|
-      next_link = f.meta['link'].split(",").map(&:strip).select {|f| f =~ /rel="next"/ }.first
-      mine = JSON.parse(f.read, symbolize_names: true)
-      if next_link =~ /<(.*)>/
-        others = parse_all_json($1)
-      else
-        others = []
-      end
-      mine + others
+      yield f
     end
   end
 end
 
+def parse_all_json(url)
+  $stderr.puts "Loading #{url}"
+  open_gh_url(url) do |f|
+    next_link = f.meta['link'].split(",").map(&:strip).select {|f| f =~ /rel="next"/ }.first
+    mine = JSON.parse(f.read, symbolize_names: true)
+    if next_link =~ /<(.*)>/
+      others = parse_all_json($1)
+    else
+      others = []
+    end
+    mine + others
+  end
+end
+
 def parse_json(url)
-  if ENV['GITHUB_TOKEN'] && ENV['GITHUB_TOKEN'] != ''
-    open(url, http_basic_authentication: ['griff', ENV['GITHUB_TOKEN']] ) do |f|
-      JSON.parse(f.read, symbolize_names: true)
-    end
-  else
-    open(url) do |f|
-      JSON.parse(f.read, symbolize_names: true)
-    end
+  $stderr.puts "Loading #{url}"
+  open_gh_url(url) do |f|
+    JSON.parse(f.read, symbolize_names: true)
   end
 end
 
