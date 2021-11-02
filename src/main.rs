@@ -68,7 +68,10 @@ impl AfterMiddleware for Profile {
         };
         if let (Some(os), Some(version)) = (os, version) {
             let major_os_split : Vec<&str> = os.split(".").take(2).collect();
-            let major_os : String = major_os_split.join(".");
+            let major_os = match major_os_split.first().map(|v| v.parse::<u32>()) {
+                Some(Ok(v)) if v >= 11 => v.to_string(),
+                _ => major_os_split.join(".")
+            };
             let mut short_version = "self-compiled";
             if let Some(app) = self.versions.get(&version) {
                 short_version = &app.short_version;
