@@ -4,6 +4,33 @@ require 'json'
 require 'open-uri'
 require 'fileutils'
 
+def parse_all_json(url)
+  puts $stderr, "Loading #{url}"
+  if ENV['GITHUB_TOKEN'] && ENV['GITHUB_TOKEN'] != ''
+    open(url, http_basic_authentication: ['griff', ENV['GITHUB_TOKEN']] ) do |f|
+      next_link = f.meta['link'].split(",").map(&:strip).select {|f| f =~ /rel="next"/ }.first
+      if next_link =~ /<(.*)>/
+        others = parse_all_json($1)
+      else
+        others = []
+      end
+      mine = JSON.parse(f.read, symbolize_names: true)
+      mine + others
+    end
+  else
+    open(url) do |f|
+      next_link = f.meta['link'].split(",").map(&:strip).select {|f| f =~ /rel="next"/ }.first
+      mine = JSON.parse(f.read, symbolize_names: true)
+      if next_link =~ /<(.*)>/
+        others = parse_all_json($1)
+      else
+        others = []
+      end
+      mine + others
+    end
+  end
+end
+
 def parse_json(url)
   if ENV['GITHUB_TOKEN'] && ENV['GITHUB_TOKEN'] != ''
     open(url, http_basic_authentication: ['griff', ENV['GITHUB_TOKEN']] ) do |f|
@@ -59,7 +86,7 @@ end
 
 FileUtils.mkdir_p("_data")
 
-all_releases = parse_json('https://api.github.com/repos/griff/metaz/releases')
+all_releases = parse_all_json('https://api.github.com/repos/griff/metaz/releases')
 File.open('_data/raw_releases.json', 'w') do |f|
   f.write(JSON.pretty_generate(all_releases))
 end
