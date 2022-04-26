@@ -6,4 +6,5 @@ pub struct VersionInfo {
     pub dsym: Option<String>,
     pub draft: bool,
     pub prerelease: bool,
+    pub download: String,
 }

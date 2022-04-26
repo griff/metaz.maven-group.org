@@ -162,11 +162,10 @@ impl Handler for Static {
 pub struct NoFile;
 
 impl Error for NoFile {
-    fn description(&self) -> &str { "File not found" }
 }
 
 impl fmt::Display for NoFile {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str(self.description())
+        f.write_str("File not found")
     }
 }

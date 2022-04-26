@@ -6,11 +6,11 @@ require 'fileutils'
 
 def open_gh_url(url, &block)
   if ENV['GITHUB_TOKEN'] && ENV['GITHUB_TOKEN'] != ''
-    open(url, http_basic_authentication: ['griff', ENV['GITHUB_TOKEN']] ) do |f|
+    URI.open(url, http_basic_authentication: ['griff', ENV['GITHUB_TOKEN']] ) do |f|
       yield f
     end
   else
-    open(url) do |f|
+    URI.open(url) do |f|
       yield f
     end
   end
@@ -99,6 +99,7 @@ all_releases.each do |r|
     dsym: r[:dsym],
     draft: r[:draft],
     prerelease: r[:prerelease],
+    download: r[:download][:browser_download_url],
   }
 end
 File.open('_data/versions.json', 'w') do |f|

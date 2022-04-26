@@ -13,7 +13,7 @@ extern crate urlencoded;
 extern crate url;
 
 use std::path::Path;
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
 use iron::{AfterMiddleware, Chain, Iron, IronResult, Plugin, Request, Response};
 use iron::status;
@@ -29,17 +29,19 @@ use urlencoded::UrlEncodedQuery;
 mod assets {
     include!(concat!(env!("OUT_DIR"), "/assets.rs"));
 }
+mod download;
 mod forward;
 mod staticassets;
 mod version_info;
 
+use download::Download;
 use staticassets::{Static, request_path};
 use version_info::VersionInfo;
 
 struct Profile {
     reader: Reader<&'static [u8]>,
     counter: CounterVec,
-    versions: HashMap<String, VersionInfo>,
+    versions: BTreeMap<String, VersionInfo>,
 }
 
 impl AfterMiddleware for Profile {
@@ -96,24 +98,50 @@ impl AfterMiddleware for Profile {
 
 fn main() {
     let versions_str = include_str!("../site/_data/versions.json");
-    let versions : HashMap<String, VersionInfo> = serde_json::from_str(versions_str).expect("Read versions");
+    let versions : BTreeMap<String, VersionInfo> = serde_json::from_str(versions_str).expect("Read versions");
+    let mut released = None;
+    let mut prereleased = None;
+    for (version, info) in versions.iter().rev() {
+        eprintln!("Checking version {}", version);
+        if info.draft {
+            continue;
+        }
+        let url = iron::Url::parse(&info.download).expect("Valid URL");
+        if info.prerelease {
+            if prereleased.is_none() {
+                prereleased = Some(url);
+            }
+        } else {
+            if prereleased.is_none() {
+                prereleased = Some(url.clone());
+            }
+            if released.is_none() {
+                released = Some(url);
+            }
+        }
+        if released.is_some() && prereleased.is_some() {
+            break;
+        }
+    }
     let db = include_bytes!("../GeoLite2-City.mmdb");
     let reader = maxminddb::Reader::from_source(&db[..]).expect("Read geo db");
     let profile = Profile {
-        reader: reader,
+        reader, versions,
         counter: register_counter_vec!(
             "profile_total",
             "Total number of appcast requests with profile",
             &["os_version", "major_os_version", "app_version",
                 "short_app_version", "country", "channel"]
         ).expect("Register counter"),
-        versions: versions,
     };
 
     let mut mount = Mount::new();
 
     // Serve the shared JS/CSS at /
     mount.mount("/", Static::new(Path::new("site/_site")));
+    mount.mount("/downloads/", Download {
+        released, prereleased,
+    });
 
     let mut chain = Chain::new(mount);
     chain.link_before(forward::XForwardedMiddleware);
