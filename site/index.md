@@ -4,7 +4,7 @@ layout: home
 
 # Introduction
 
-MetaZ is an mp4 meta-data editor for OS X.  
+MetaZ is an mp4 meta-data editor for macOS.  
 It started its life when another great meta-data editor MetaX stopped getting
 updated, some of the web-services it used changed in ways that broke
 functionality and it had some really anoying (to us at least) little missing
